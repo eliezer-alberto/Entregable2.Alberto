@@ -66,7 +66,7 @@ function agregarParticipante() {
     setMensaje("Ingresá un nombre válido.", "error");
     return;
   }
-  // Evitar duplicados (ignora mayúsculas/minúsculas)
+
   const existe = participantes.some(
     (p) => p.toLowerCase() === nombre.toLowerCase()
   );
@@ -87,7 +87,6 @@ function eliminarParticipante(index) {
   guardar();
   mostrarParticipantes();
   setMensaje(`Se eliminó "${eliminado}" de la lista.`);
-  // Si había un resultado mostrado, lo ocultamos para evitar confusiones
   resultadoCard.hidden = true;
 }
 
@@ -123,5 +122,4 @@ inputNombre.addEventListener("keydown", (e) => {
   if (e.key === "Enter") agregarParticipante();
 });
 
-// Init
 mostrarParticipantes();

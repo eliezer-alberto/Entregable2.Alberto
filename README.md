@@ -50,4 +50,3 @@ Toda la interacción se realiza desde el HTML mediante eventos, y los datos se g
 
 - Se evita duplicar nombres (comparación sin distinción de mayúsculas/minúsculas).
 - El botón **Limpiar lista** solicita confirmación para prevenir errores.
-- El estilo es sencillo; podés personalizarlo en `assets/css/style.css`.
