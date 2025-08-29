@@ -1,20 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulador de Sorteo</title>
-    <link rel="stylesheet" href="./assets/style.css" />
-    <script defer src="./main.js"></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
-  <header></header>
   <body>
-    <h1>Simulador de Sorteo Aleatorio</h1>
-    <p>
-      Este simulador permite ingresar una cantidad de participantes, registrar
-      sus nombres y elegir un ganador al azar. Toda la interacción se realiza
-      por medio de cuadros de diálogo (prompt, alert, confirm) y la consola del
-      navegador.
-    </p>
+    <header class="container">
+      <h1>Simulador de Sorteo</h1>
+      <p class="subtext">
+        Ingresá participantes, administrá la lista y realizá el sorteo. Los
+        datos se guardan en tu navegador (localStorage).
+      </p>
+    </header>
+    <main class="container">
+      <section class="card">
+        <h2>Agregar participante</h2>
+        <div class="row">
+          <input
+            type="text"
+            id="nombreInput"
+            placeholder="Nombre del participante"
+            autocomplete="off"
+          />
+          <button id="btnAgregar" aria-label="Agregar participante">
+            Agregar
+          </button>
+        </div>
+        <p id="mensaje" class="mensaje" aria-live="polite"></p>
+      </section>
+      <section class="card">
+        <div class="row space-between align-center">
+          <h2>Participantes (<span id="contador">0</span>)</h2>
+          <div class="actions">
+            <button id="btnSorteo">Realizar sorteo</button>
+            <button id="btnLimpiar" class="secondary">Limpiar lista</button>
+          </div>
+        </div>
+        <ul id="listaParticipantes" class="lista"></ul>
+      </section>
+      <section class="card destacado" id="resultadoCard" hidden>
+        <h2>Resultado</h2>
+        <p id="resultado" class="resultado"></p>
+      </section>
+    </main>
+    <footer class="container footer">
+      <small
+        >Entregable 2 – Integración JS + DOM + Eventos + localStorage</small
+      >
+    </footer>
+    <script src="./assets/js/main.js"></script>
   </body>
 </html>

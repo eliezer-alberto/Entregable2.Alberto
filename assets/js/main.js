@@ -1,0 +1,127 @@
+let participantes = JSON.parse(localStorage.getItem("participantes")) || [];
+
+// Elementos del DOM
+const inputNombre = document.getElementById("nombreInput");
+const btnAgregar = document.getElementById("btnAgregar");
+const btnSorteo = document.getElementById("btnSorteo");
+const btnLimpiar = document.getElementById("btnLimpiar");
+const lista = document.getElementById("listaParticipantes");
+const contador = document.getElementById("contador");
+const resultado = document.getElementById("resultado");
+const resultadoCard = document.getElementById("resultadoCard");
+const mensaje = document.getElementById("mensaje");
+
+// Utilidades
+function guardar() {
+  localStorage.setItem("participantes", JSON.stringify(participantes));
+}
+
+function setMensaje(texto, tipo = "") {
+  mensaje.textContent = texto;
+  mensaje.className = tipo ? `mensaje ${tipo}` : "mensaje";
+}
+
+function actualizarContador() {
+  contador.textContent = participantes.length;
+}
+
+// Render de la lista
+function mostrarParticipantes() {
+  lista.innerHTML = "";
+  participantes.forEach((nombre, i) => {
+    const li = document.createElement("li");
+    li.className = "item";
+
+    const span = document.createElement("span");
+    span.className = "nombre";
+    span.textContent = nombre;
+
+    const derecha = document.createElement("div");
+
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = `#${i + 1}`;
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.className = "btn-icon";
+    btnEliminar.setAttribute("aria-label", `Eliminar a ${nombre}`);
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.addEventListener("click", () => eliminarParticipante(i));
+
+    derecha.appendChild(badge);
+    derecha.appendChild(btnEliminar);
+
+    li.appendChild(span);
+    li.appendChild(derecha);
+
+    lista.appendChild(li);
+  });
+  actualizarContador();
+}
+
+// Acciones
+function agregarParticipante() {
+  const nombre = inputNombre.value.trim();
+  if (nombre.length === 0) {
+    setMensaje("Ingresá un nombre válido.", "error");
+    return;
+  }
+  // Evitar duplicados (ignora mayúsculas/minúsculas)
+  const existe = participantes.some(
+    (p) => p.toLowerCase() === nombre.toLowerCase()
+  );
+  if (existe) {
+    setMensaje(`"${nombre}" ya está en la lista.`, "error");
+    return;
+  }
+  participantes.push(nombre);
+  guardar();
+  mostrarParticipantes();
+  setMensaje(`Se agregó "${nombre}" a la lista.`);
+  inputNombre.value = "";
+  inputNombre.focus();
+}
+
+function eliminarParticipante(index) {
+  const eliminado = participantes.splice(index, 1)[0];
+  guardar();
+  mostrarParticipantes();
+  setMensaje(`Se eliminó "${eliminado}" de la lista.`);
+  // Si había un resultado mostrado, lo ocultamos para evitar confusiones
+  resultadoCard.hidden = true;
+}
+
+function realizarSorteo() {
+  if (participantes.length < 1) {
+    setMensaje("Necesitás al menos 1 participante para sortear.", "error");
+    resultadoCard.hidden = true;
+    return;
+  }
+  const indice = Math.floor(Math.random() * participantes.length);
+  const ganador = participantes[indice];
+  resultado.textContent = `🎉 Ganador: ${ganador}`;
+  resultadoCard.hidden = false;
+  setMensaje("");
+}
+
+function limpiarParticipantes() {
+  if (!confirm("¿Seguro que querés limpiar toda la lista?")) return;
+  participantes = [];
+  guardar();
+  mostrarParticipantes();
+  resultadoCard.hidden = true;
+  setMensaje("Lista vaciada.");
+}
+
+// Eventos
+btnAgregar.addEventListener("click", agregarParticipante);
+btnSorteo.addEventListener("click", realizarSorteo);
+btnLimpiar.addEventListener("click", limpiarParticipantes);
+
+// Agregar con Enter
+inputNombre.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") agregarParticipante();
+});
+
+// Init
+mostrarParticipantes();
