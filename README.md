@@ -19,13 +19,13 @@ Toda la interacción se realiza desde el HTML mediante eventos, y los datos se g
 
 ## Estructura de carpetas
 
-├── index.html
-├── assets/
-│ ├── js/
-│ │ └── main.js
-│ └── css/
-│ └── style.css
-└── README.md
+- index.html
+- assets/
+  - js/
+    - main.js
+  - css/
+    - style.css
+- README.md
 
 > Los archivos JS y CSS se encuentran dentro de la carpeta `assets` para mantener organizada la estructura del proyecto.
 
