@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulador de Sorteo</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="./assets/js/main.js"></script>
   </head>
   <body>
     <header class="container">
       <h1>Simulador de Sorteo</h1>
       <p class="subtext">
-        Ingresá participantes, podes administrar la lista y realizar el sorteo.
+        Ingresá participantes, podés administrar la lista y realizar el sorteo.
         Los datos se guardan en el localStorage del navegador.
       </p>
     </header>
@@ -29,11 +30,16 @@
             Agregar
           </button>
         </div>
-        <p id="mensaje" class="mensaje" aria-live="polite"></p>
       </section>
       <section class="card">
         <div class="row space-between align-center">
           <h2>Participantes (<span id="contador">0</span>)</h2>
+          <div class="row">
+            <label for="premiosSelect">Premio:</label>
+            <select id="premiosSelect">
+              <option value="">-- Elige un premio --</option>
+            </select>
+          </div>
           <div class="actions">
             <button id="btnSorteo">Realizar sorteo</button>
             <button id="btnLimpiar" class="secondary">Limpiar lista</button>
@@ -45,11 +51,15 @@
         <h2>Resultado</h2>
         <p id="resultado" class="resultado"></p>
       </section>
+      <section class="card">
+        <h2>Historial de sorteos</h2>
+        <ul id="historialSorteos"></ul>
+      </section>
     </main>
     <footer class="container footer">
-      <small
-        >Entregable 2 – Integración JS + DOM + Eventos + localStorage</small
-      >
+      <small>
+        Proyecto Final – Integración JS + DOM + Eventos + localStorage
+      </small>
     </footer>
   </body>
 </html>
