@@ -1,3 +1,4 @@
+// Recuperar participantes desde localStorage
 let participantes = JSON.parse(localStorage.getItem("participantes")) || [];
 
 // Elementos del DOM
@@ -11,21 +12,23 @@ const resultado = document.getElementById("resultado");
 const resultadoCard = document.getElementById("resultadoCard");
 const mensaje = document.getElementById("mensaje");
 
-// Utilidades
+// Guardar participantes en localStorage
 function guardar() {
   localStorage.setItem("participantes", JSON.stringify(participantes));
 }
 
+// Mostrar mensaje en pantalla
 function setMensaje(texto, tipo = "") {
   mensaje.textContent = texto;
   mensaje.className = tipo ? `mensaje ${tipo}` : "mensaje";
 }
 
+// Actualizar contador de participantes
 function actualizarContador() {
   contador.textContent = participantes.length;
 }
 
-// Render de la lista
+// Mostrar lista de participantes
 function mostrarParticipantes() {
   lista.innerHTML = "";
   participantes.forEach((nombre, i) => {
@@ -37,7 +40,6 @@ function mostrarParticipantes() {
     span.textContent = nombre;
 
     const derecha = document.createElement("div");
-
     const badge = document.createElement("span");
     badge.className = "badge";
     badge.textContent = `#${i + 1}`;
@@ -59,10 +61,10 @@ function mostrarParticipantes() {
   actualizarContador();
 }
 
-// Acciones
+// Agregar participante
 function agregarParticipante() {
   const nombre = inputNombre.value.trim();
-  if (nombre.length === 0) {
+  if (!nombre) {
     setMensaje("Ingresá un nombre válido.", "error");
     return;
   }
@@ -74,6 +76,7 @@ function agregarParticipante() {
     setMensaje(`"${nombre}" ya está en la lista.`, "error");
     return;
   }
+
   participantes.push(nombre);
   guardar();
   mostrarParticipantes();
@@ -82,6 +85,7 @@ function agregarParticipante() {
   inputNombre.focus();
 }
 
+// Eliminar participante
 function eliminarParticipante(index) {
   const eliminado = participantes.splice(index, 1)[0];
   guardar();
@@ -90,12 +94,14 @@ function eliminarParticipante(index) {
   resultadoCard.hidden = true;
 }
 
+// Realizar sorteo aleatorio
 function realizarSorteo() {
-  if (participantes.length < 1) {
+  if (!participantes.length) {
     setMensaje("Necesitás al menos 1 participante para sortear.", "error");
     resultadoCard.hidden = true;
     return;
   }
+
   const indice = Math.floor(Math.random() * participantes.length);
   const ganador = participantes[indice];
   resultado.textContent = `🎉 Ganador: ${ganador}`;
@@ -103,6 +109,7 @@ function realizarSorteo() {
   setMensaje("");
 }
 
+// Limpiar participantes
 function limpiarParticipantes() {
   if (!confirm("¿Seguro que querés limpiar toda la lista?")) return;
   participantes = [];
@@ -122,4 +129,5 @@ inputNombre.addEventListener("keydown", (e) => {
   if (e.key === "Enter") agregarParticipante();
 });
 
+// Render inicial
 mostrarParticipantes();
