@@ -1,18 +1,22 @@
-# Proyecto Final - Simulador de Sorteo 🎲
+# Simulador de Sorteo 🎲
+
+Proyecto Final del curso de JavaScript en Coder House
+
+---
 
 ## Descripción
 
-**Entregable Final (JS + DOM + Eventos + localStorage)**
+Este simulador permite:
 
-Este proyecto es un simulador de sorteos que permite registrar participantes, administrarlos desde la interfaz y realizar un sorteo aleatorio.  
-Toda la interacción se realiza desde el HTML mediante eventos, y los datos se guardan en `localStorage` para persistir entre recargas.
+- Agregar y administrar participantes desde la interfaz web.
+- Seleccionar un premio desde una lista cargada dinámicamente desde `sorteos.json`.
+- Realizar un sorteo aleatorio mostrando **ganador + premio**.
+- Guardar el historial de sorteos en `localStorage` para mantener registro entre recargas.
+- Alertas y confirmaciones amigables con **SweetAlert2**.
 
-## Archivos incluidos
+Toda la interacción se realiza **directamente desde el DOM**, sin uso de `prompt`, `alert` ni `console.log`.
 
-- `index.html` – Documento base con referencia al archivo JS y estructura HTML.
-- `assets/js/main.js` – Lógica del simulador: carga de datos, selección aleatoria y salida de resultados.
-- `assets/css/style.css` – Estilos del simulador: colores de fondo, botones, inputs y textos.
-- `README.md` – Documentación del proyecto.
+---
 
 ## Estructura de carpetas
 
@@ -22,28 +26,49 @@ Toda la interacción se realiza desde el HTML mediante eventos, y los datos se g
     - main.js
   - css/
     - style.css
+  - data/
+    - sorteos.json
 - README.md
 
-> Todos los archivos JS y CSS se encuentran dentro de la carpeta `assets` para mantener organizada la estructura del proyecto.
+
+> Los archivos JS, CSS y JSON se encuentran dentro de la carpeta `assets` para mantener organizada la estructura del proyecto.
+
+---
+
+## Archivos incluidos
+
+- `index.html` – Documento base, contiene toda la estructura del simulador.  
+- `main.js` – Lógica del simulador: agregar participantes, realizar sorteos, historial y manejo de premios.  
+- `style.css` – Estilos de la interfaz: diseño de tarjetas, botones, inputs y textos.  
+- `sorteos.json` – Lista de premios disponibles para el sorteo.  
+
+---
 
 ## Cómo usar
 
-1. Abrí `index.html` en el navegador.
-2. Escribí un nombre y presioná **Agregar** (o Enter).
-3. Podés **eliminar** participantes desde la lista.
-4. Hacé clic en **Realizar sorteo** para ver el ganador.
-5. La lista se guarda automáticamente en `localStorage`.
-6. **Limpiar lista** borra los datos y la vista, previo aviso de confirmación.
+1. Abrí `index.html` en un navegador compatible.  
+2. Escribí un nombre y presioná **Agregar** (o Enter) para agregar participantes.  
+3. Podés **eliminar** participantes individualmente o limpiar toda la lista.  
+4. Seleccioná un premio desde el menú desplegable.  
+5. Hacé clic en **Realizar sorteo** para ver el ganador y el premio asignado.  
+6. El historial de sorteos se guarda automáticamente y se muestra en la sección correspondiente.  
 
-## Tecnologías y criterios cubiertos
+---
 
-- **DOM + Eventos:** `addEventListener`, creación dinámica de nodos, actualización del DOM.
-- **Flujo de trabajo completo:** entrada (input) → proceso (lógica de sorteo / validaciones) → salida (resultado en pantalla).
-- **Persistencia:** uso de `localStorage` (array serializado en JSON).
-- **Legibilidad:** funciones con nombres claros, comentarios breves y validaciones simples.
-- **Separación de archivos:** HTML, CSS y JS en subcarpetas dentro de `assets`.
+## Tecnologías y conceptos cubiertos
 
-## Notas adicionales
+- **DOM + Eventos:** `addEventListener`, creación dinámica de nodos, actualización del DOM.  
+- **Fetch + JSON:** carga de datos externos (`sorteos.json`) de manera asíncrona.  
+- **localStorage:** persistencia de participantes y historial de sorteos.  
+- **SweetAlert2:** alertas y confirmaciones amigables para el usuario.  
+- **Flujo de trabajo completo:** entrada (inputs) → proceso (lógica del sorteo) → salida (resultado en pantalla).  
+- **Legibilidad:** funciones con nombres claros, comentarios oportunos y código modular.  
 
-- Se evita duplicar nombres (comparación sin distinción de mayúsculas/minúsculas).
-- El botón **Limpiar lista** solicita confirmación para prevenir borrados accidentales.
+---
+
+## Notas
+
+- Se evita duplicar nombres de participantes (comparación case-insensitive).  
+- La sección de historial permite visualizar los ganadores y los premios asignados en sorteos anteriores.  
+- SweetAlert2 reemplaza los `alert` y `confirm` para mejorar la experiencia de usuario.  
+- Los premios se cargan desde `sorteos.json`, simulando datos externos.  
